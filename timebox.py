@@ -45,7 +45,7 @@ def get_things_min(index=0, complete_task=False):
         task = tasks[index]
         if not complete_task:
             if task[0]:
-                return int(task[0].replace("min", ""))*SEC_TO_MIN
+                return int(task[0].replace("min", ""))
         else:
             if task[2]:
                 # print("open the following url: ", task[2])
@@ -71,8 +71,8 @@ class TimerApp(object):
             callback = lambda _, j=i: self.set_mins(_, j)
             self.buttons["btn_" + str(i)] = rumps.MenuItem(title=title, callback=callback)
             self.buttons_callback[title] = callback
-        self.interval = get_things_min()
-        self.button_things = rumps.MenuItem(title="Things Interval ("+str(round(self.interval/SEC_TO_MIN))+"min)", callback=lambda _: self.set_things_mins(_, self.interval))
+        self.interval = get_things_min()*SEC_TO_MIN
+        self.button_things = rumps.MenuItem(title="Things Interval ("+str(round(self.interval/SEC_TO_MIN))+"min)", callback=lambda _: self.set_things_mins(_))
         self.button_things.state = True
         self.app.menu = [
             self.start_pause_button,
@@ -86,11 +86,11 @@ class TimerApp(object):
     def run(self):
         self.app.run()
 
-    def set_things_mins(self, sender, interval):
-        self.interval = get_things_min()
-        print("self interval is now", self.interval)
-        self.button_things.title = "Things Interval (" + str(round(self.interval / SEC_TO_MIN)) + "min)"
-        self.set_mins(sender, self.interval)
+    def set_things_mins(self, sender):
+        pass_interval = get_things_min()
+        print("pass_interval is now", pass_interval)
+        self.button_things.title = "Things Interval (" + str(round(pass_interval)) + "min)"
+        self.set_mins(sender, pass_interval)
 
     def set_mins(self, sender, interval):
         for btn in [self.button_things, *self.buttons.values()]:
@@ -143,11 +143,11 @@ class TimerApp(object):
 
         for key, btn in self.buttons.items():
             btn.set_callback(self.buttons_callback[btn.title])
-        self.button_things.set_callback(lambda _: self.set_things_mins(_, get_things_min()))
+        self.button_things.set_callback(lambda _: self.set_things_mins(_))
 
         if self.button_things.state:
             self.interval = get_things_min(1)
-            self.button_things.title = "Things Interval ("+str(round(self.interval/SEC_TO_MIN))+"min)"
+            self.button_things.title = "Things Interval ("+str(round(self.interval))+"min)"
             get_things_min(0, True)
 
         self.start_pause_button.title = 'Start Timer'
