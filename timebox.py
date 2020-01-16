@@ -13,7 +13,7 @@ except ImportError:
 
 rumps.debug_mode(True)
 
-SEC_TO_MIN = 1
+SEC_TO_MIN = 60
 
 
 def timez():
