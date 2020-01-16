@@ -6,4 +6,4 @@ venv
 .npm
 .node_repl_history
 build
-dist/.DS_Store
+dist
