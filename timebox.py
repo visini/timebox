@@ -146,8 +146,8 @@ class TimerApp(object):
         self.button_things.set_callback(lambda _: self.set_things_mins(_))
 
         if self.button_things.state:
-            self.interval = get_things_min(1)
-            self.button_things.title = "Things Interval ("+str(round(self.interval))+"min)"
+            self.interval = get_things_min(1)*SEC_TO_MIN
+            self.button_things.title = "Things Interval ("+str(round(self.interval/SEC_TO_MIN))+"min)"
             get_things_min(0, True)
 
         self.start_pause_button.title = 'Start Timer'
