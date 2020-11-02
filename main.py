@@ -7,7 +7,7 @@ import os
 
 from ssh_desk_handler import SSHDeskHandler
 
-SEC_TO_MIN = 2
+SEC_TO_MIN = 60
 
 def timez():
     return time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
