@@ -7,7 +7,7 @@ import os
 
 from ssh_desk_handler import SSHDeskHandler
 
-SEC_TO_MIN = 60
+SEC_TO_MIN = 2
 
 def timez():
     return time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
@@ -127,6 +127,10 @@ class TimerApp(object):
         self.sync_data()
 
     def sync_data(self):
+
+        for key, btn in self.buttons.items():
+            btn.set_callback(self.buttons_callback[btn.title])
+
         self.things_tasks = get_things_today_tasks()
 
         self.things_processed_tasks = process_tasks(self.things_tasks)
@@ -165,12 +169,13 @@ class TimerApp(object):
         for btn in [*self.things_buttons.values(), *self.buttons.values()]:
             if sender.title == btn.title:
                 self.interval = interval * SEC_TO_MIN
-                self.interval = interval * SEC_TO_MIN
                 cleaned_title = " ".join(sender.title.split()[:-2])
-                self.menu_title = " → " + cleaned_title
-                btn.state = True
                 if task_url is not None:
+                    self.menu_title = " → " + cleaned_title
                     self.current_things_task_url = task_url
+                else:
+                    self.menu_title = ""
+                btn.state = True
             elif sender.title != btn.title:
                 btn.state = False
 
@@ -239,6 +244,7 @@ class TimerApp(object):
             )
 
         self.start_pause_button.title = "Start Timer"
+        self.sync_data()
 
 
 if __name__ == "__main__":
