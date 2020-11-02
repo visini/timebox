@@ -3,7 +3,8 @@
 __pycache__/
 node_modules
 venv
+dist
+build
 .npm
 .node_repl_history
-build
-dist
+.eggs
