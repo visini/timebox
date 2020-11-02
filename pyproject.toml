@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "timebox"
-version = "0.2.0"
+version = "0.3.0"
 description = "Menu bar utility app (macOS) adding timeboxing functionality to Things 3."
 authors = ["Camillo Visini <c.visini@gmail.com>"]
 license = "MIT"
