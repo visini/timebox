@@ -1,4 +1,4 @@
-APP_NAME := "Timebox"
+APP_NAME := Timebox
 
 ifdef VERSION
 VERSION_SET := 1
