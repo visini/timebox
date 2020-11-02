@@ -10,6 +10,12 @@ Integrated with a _Raspberry Pi-/Arduino-powered standing desk_ for setting a ne
 
 See `Makefile` for how to install, debug, build, and release. Or download the [latest release](https://github.com/visini/timebox/releases).
 
+Download using GitHub CLI:
+
+```shell
+gh release -R visini/timebox download -D ~/Downloads -p "*.app.zip"
+```
+
 ---
 
 See also:
