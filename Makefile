@@ -5,13 +5,14 @@ VERSION_SET := 1
 endif
 
 install:
-	export SYSTEM_VERSION_COMPAT=1
-	export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
-	export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
-	export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
-	export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
-	export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
-	export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
+	@echo "If pip error, export the below flags (NOT via Makefile, since every line has separate shell! run directly)"
+	#export SYSTEM_VERSION_COMPAT=1
+	#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+	#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+	#export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
+	#export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
+	#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
+	#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
 	poetry install
 dev:
 	poetry run python main.py
