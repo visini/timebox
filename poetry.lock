@@ -125,10 +125,18 @@ category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
+[[package]]
+name = "things.py"
+version = "0.0.7"
+description = "A simple Python 3 library to read your Things app data."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4bfabf9c7d6aba5389ee75e24ced773e1ce258f8ff1d81698d370d8ae798059e"
+content-hash = "c983efbed3e6d3e55eb94923fab51397006105b73115d299a0dd1a81a02ce639"
 
 [metadata.files]
 bcrypt = [
@@ -244,4 +252,8 @@ rumps = [
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
     {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
+]
+"things.py" = [
+    {file = "things.py-0.0.7-py3-none-any.whl", hash = "sha256:8ccf77923bbe17a0b98903893a195d3f31613e264d764974c681a047f7d46294"},
+    {file = "things.py-0.0.7.tar.gz", hash = "sha256:53d40dc0a51cc44dbb38c287c2a1043055872fa1e0946bd001746dbf556d230e"},
 ]

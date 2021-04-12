@@ -4,7 +4,7 @@ import subprocess
 import shlex
 import sqlite3
 import os
-
+import things
 from ssh_desk_handler import SSHDeskHandler
 
 SEC_TO_MIN = 60
@@ -14,36 +14,16 @@ def timez():
 
 
 def get_things_today_tasks(index=0, complete_task=False):
-    conn = sqlite3.connect(
-        os.path.expanduser(
+    DB = os.path.expanduser(
             "~/Library/Group Containers/JLMPQHK86H.com.culturedcode.ThingsMac/Things Database.thingsdatabase/main.sqlite"
         )
-    )
-    sql = (
-        "SELECT\n"
-        "            TAG.title,\n"
-        "            TASK.title,\n"
-        '            "things:///show?id=" || TASK.uuid\n'
-        "            FROM TMTask as TASK\n"
-        "            LEFT JOIN TMTaskTag TAGS ON TAGS.tasks = TASK.uuid\n"
-        "            LEFT JOIN TMTag TAG ON TAGS.tags = TAG.uuid\n"
-        "            LEFT OUTER JOIN TMTask PROJECT ON TASK.project = PROJECT.uuid\n"
-        "            LEFT OUTER JOIN TMArea AREA ON TASK.area = AREA.uuid\n"
-        "            LEFT OUTER JOIN TMTask HEADING ON TASK.actionGroup = HEADING.uuid\n"
-        "            WHERE TASK.trashed = 0 AND TASK.status = 0 AND TASK.type = 0 AND TAG.title IS NOT NULL\n"
-        "            AND TASK.start = 1\n"
-        "            AND TASK.startdate is NOT NULL\n"
-        "            ORDER BY TASK.todayIndex\n"
-        "            LIMIT 100"
-    )
-    tasks = []
-    try:
-        for row in conn.execute(sql):
-            tasks.append(row)
-    except:
-        pass
-    conn.close()
-    return tasks
+    mytasks = []
+    tasks = things.today(filepath=DB)
+    for task in tasks:
+        for tag in task.get('tags', []):
+            mytasks.append((tag, task['title'], things.link(task['uuid'])))
+
+    return mytasks
 
 
 def process_tasks(list_of_tasks):
