@@ -5,8 +5,6 @@ import shlex
 import sqlite3
 import os
 
-from ssh_desk_handler import SSHDeskHandler
-
 SEC_TO_MIN = 60
 
 def timez():
@@ -78,7 +76,6 @@ class TimerApp(object):
         self.timer.stop()  # timer running when initialized
         self.timer.count = 0
         self.app = rumps.App("Timebox", "🥊")
-        self.desk_handler = SSHDeskHandler()
         self.interval = SEC_TO_MIN
         self.current_things_task_url = None
         self.start_pause_button = rumps.MenuItem(
@@ -86,12 +83,6 @@ class TimerApp(object):
             callback=lambda _: self.start_timer(_, self.interval),
             key="s",
         )
-        self.toggle_sit_stand_button = rumps.MenuItem(
-            title="Toggle Sit/Stand",
-            callback=lambda sender: self.toggle_button(sender),
-            key="t",
-        )
-        self.toggle_sit_stand_button.state = True
         self.stop_button = rumps.MenuItem(title="Stop Timer", callback=None)
         self.buttons = {}
         self.buttons_callback = {}
@@ -114,7 +105,6 @@ class TimerApp(object):
         self.app.menu = [
             self.start_pause_button,
             self.sync_button,
-            self.toggle_sit_stand_button,
             None,
             self.sum_menu_item,
             # *self.things_buttons.values(),
@@ -215,8 +205,6 @@ class TimerApp(object):
                     shlex.split("open '" + self.current_things_task_url + "'")
                 )
                 self.current_things_task_url = None
-            if self.toggle_sit_stand_button.state == True:
-                self.desk_handler.toggle()            
             self.stop_timer(sender)
             self.stop_button.set_callback(None)
             self.sync_data()
