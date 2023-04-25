@@ -8,6 +8,8 @@ Menu bar utility app (macOS) for adding [Timeboxing](https://en.wikipedia.org/wi
 
 See `Makefile` for how to install, debug, build, and release. Or download the [latest release](https://github.com/visini/timebox/releases).
 
+Note: Since April 14, 2023, Things 3 stores data in a unique location - you will have to build the app after setting the proper path in `main.py` via `THINGS_SQLITE_PATH`.
+
 Download using GitHub CLI:
 
 ```shell

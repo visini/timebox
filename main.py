@@ -5,18 +5,13 @@ import shlex
 import sqlite3
 import os
 
-SEC_TO_MIN = 60
+THINGS_SQLITE_PATH = "~/Library/Group Containers/JLMPQHK86H.com.culturedcode.ThingsMac/ThingsData-4R6L5/Things Database.thingsdatabase/main.sqlite"
 
 def timez():
     return time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
 
-
 def get_things_today_tasks(index=0, complete_task=False):
-    conn = sqlite3.connect(
-        os.path.expanduser(
-            "~/Library/Group Containers/JLMPQHK86H.com.culturedcode.ThingsMac/Things Database.thingsdatabase/main.sqlite"
-        )
-    )
+    conn = sqlite3.connect(os.path.expanduser(THINGS_SQLITE_PATH))
     sql = (
         "SELECT\n"
         "            TAG.title,\n"
@@ -27,7 +22,6 @@ def get_things_today_tasks(index=0, complete_task=False):
         "            LEFT JOIN TMTag TAG ON TAGS.tags = TAG.uuid\n"
         "            LEFT OUTER JOIN TMTask PROJECT ON TASK.project = PROJECT.uuid\n"
         "            LEFT OUTER JOIN TMArea AREA ON TASK.area = AREA.uuid\n"
-        "            LEFT OUTER JOIN TMTask HEADING ON TASK.actionGroup = HEADING.uuid\n"
         "            WHERE TASK.trashed = 0 AND TASK.status = 0 AND TASK.type = 0 AND TAG.title IS NOT NULL\n"
         "            AND TASK.start = 1\n"
         "            AND TASK.startdate is NOT NULL\n"
@@ -76,7 +70,7 @@ class TimerApp(object):
         self.timer.stop()  # timer running when initialized
         self.timer.count = 0
         self.app = rumps.App("Timebox", "🥊")
-        self.interval = SEC_TO_MIN
+        self.interval = 60
         self.current_things_task_url = None
         self.start_pause_button = rumps.MenuItem(
             title="Start Timer",
@@ -158,7 +152,7 @@ class TimerApp(object):
     def set_mins(self, sender, interval, task_url):
         for btn in [*self.things_buttons.values(), *self.buttons.values()]:
             if sender.title == btn.title:
-                self.interval = interval * SEC_TO_MIN
+                self.interval = interval * 60
                 cleaned_title = " ".join(sender.title.split()[:-2])
                 if task_url is not None:
                     self.menu_title = " → " + cleaned_title
