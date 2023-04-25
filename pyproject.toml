@@ -6,8 +6,8 @@ authors = ["Camillo Visini <c.visini@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-rumps = "^0.3.0"
+python = "^3.10"
+rumps = "^0.4.0"
 paramiko = "^2.7.2"
 
 [tool.poetry.dev-dependencies]
