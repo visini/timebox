@@ -16,6 +16,8 @@ Download using GitHub CLI:
 gh release -R visini/timebox download -D ~/Downloads -p "*.app.zip"
 ```
 
+Note: If you can't open `Timebox.app`, you could try running `xattr -cr Timebox.app`.
+
 ---
 
 See also:
